@@ -2,13 +2,15 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ] # Triggers whenever you push to main
+    branches: [ main ]
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   deploy:
@@ -23,20 +25,19 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm' # change to yarn or pnpm if needed
+          node-version: '24' # Forces version 24
+          # Removing the generic 'cache: npm' line here completely bypasses the stale environment bug
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install # Clean install without using old cache configurations
 
       - name: Build website
-        run: npm run build # Makes sure this generates a dist/ or build/ folder
+        run: npm run build
 
       - name: Upload production artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          # Astro/Vite output to 'dist'. Change to 'build' if using traditional CRA.
-          path: ./dist 
+          path: ./dist
 
       - name: Deploy to GitHub Pages
         id: deployment
