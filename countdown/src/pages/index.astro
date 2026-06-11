@@ -1,0 +1,33 @@
+---
+import '../styles/global.css';
+import Counter from '../components/Counter.jsx';
+
+const targetTime = "2036-08-15 24:00"
+// const targetTime = "2026-06-23 13:43"
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Countdown</title>
+	</head>
+	<body class="bg-slate-800 min-h-[100vh] flex flex-col items-center justify-center text-white">
+		<main class="flex flex-col items-center">
+			<h1 class="inline-block text-2xl text-center mb-2" title={new Date(targetTime).toLocaleString()}>Countdown</h1>
+			<section class="grid grid-cols-2 max-w-200 min-w-90 gap-x-4 m-auto border-2 rounded-2xl p-4">
+				<h2 class="uppercase text-right">milliseconds</h2> <Counter client:load targetTime={targetTime} interval="milliseconds"/>
+				<h2 class="uppercase text-right">seconds</h2> <Counter client:load targetTime={targetTime} interval="seconds"/>
+				<h2 class="uppercase text-right">minutes</h2> <Counter client:load targetTime={targetTime} interval="minutes"/>
+				<h2 class="uppercase text-right">hours</h2> <Counter client:load targetTime={targetTime} interval="hours"/>
+				<h2 class="uppercase text-right">days</h2> <Counter client:load targetTime={targetTime} interval="days"/>
+				<h2 class="uppercase text-right">weeks</h2> <Counter client:load targetTime={targetTime} interval="weeks"/>
+				<h2 class="uppercase text-right">months</h2> <Counter client:load targetTime={targetTime} interval="months"/>
+				<h2 class="uppercase text-right">years</h2> <Counter client:load targetTime={targetTime} interval="years"/>
+			</section>
+		</main>
+	</body>
+</html>
